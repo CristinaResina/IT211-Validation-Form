@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Validation Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+  font-family: "Italic", sans-serif;
+  background-color: #FAF0E6;
+}
+
+.container {
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid#F5F5DC;
+  border-radius: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 4px;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid#DEB887;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color:#E9967A;
+  color: #FFE4C4;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#message {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Password Validation Form</h2>
+    <form id="passwordForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" required>
+
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+
+      <button type="submit">Submit</button>
+    </form>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    function validatePassword(password) {
+  // Check if the password has at least 8 characters
+  if (password.length < 8) {
+    return false;
+  }
+
+  // Check if the password contains at least one uppercase letter
+  if (!/[A-Z]/.test(password)) {
+    return false;
+  }
+
+  // Check if the password contains at least one lowercase letter
+  if (!/[a-z]/.test(password)) {
+    return false;
+  }
+
+  // If all checks pass, the password is valid
+  return true;
+}
+
+function validateForm(event) {
+  event.preventDefault(); // Prevent form submission
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const password = document.getElementById("password").value;
+  const messageElement = document.getElementById("message");
+
+  // Check if first name and last name are not missing
+  if (!firstName || !lastName) {
+    messageElement.textContent = "Please enter both first name and last name.";
+    return;
+  }
+
+  // Validate the password
+  if (!validatePassword(password)) {
+    messageElement.textContent = "Invalid password. Passwords should have at least 8 characters, at least one uppercase letter, and at least one lowercase letter.";
+    return;
+  }
+
+  // If all fields are valid, display success message
+  messageElement.textContent = "All form entries are valid!";
+}
+
+document.getElementById("passwordForm").addEventListener("submit", validateForm);
+
+  </script>
+</body>
+</html>
 
